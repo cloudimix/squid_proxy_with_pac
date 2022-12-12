@@ -18,6 +18,3 @@ jobs:
 
       - name: tfsec
         uses: aquasecurity/tfsec-action@v1.0.0
-
-      - name: Makefile check
-        uses: Uno-Takashi/checkmake-action@main
