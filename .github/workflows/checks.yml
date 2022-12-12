@@ -1,0 +1,23 @@
+name: Run some tests
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  basic_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Ansible-lint
+        uses: ansible-community/ansible-lint-action@main
+
+      - name: Lint Terraform
+        uses: actionshub/terraform-lint@main
+
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
+
+      - name: Makefile check
+        uses: Uno-Takashi/checkmake-action@main
