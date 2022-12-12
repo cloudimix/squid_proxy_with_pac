@@ -1,0 +1,5 @@
+roles:
+  - name: geerlingguy.firewall
+
+collections:
+  - name: community.general

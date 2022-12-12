@@ -1,0 +1,52 @@
+---
+- name: Update apt-get repo and cache
+  ansible.builtin.apt:
+    update_cache: true
+    force_apt_get: true
+
+- name: Installing Nginx and Squid proxy
+  ansible.builtin.apt:
+    name:
+      - nginx
+      - squid
+    state: present
+
+- name: proxy.pac generating and copying
+  ansible.builtin.template:
+    src: proxy.pac.j2
+    dest: /var/www/html/proxy.pac
+    mode: 0555
+
+- name: Starting Nginx and enable it on the boot
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+
+- name: Ensure the htpasswd utility is installed.
+  ansible.builtin.package:
+    name: "{{ htpasswd_required_packages }}"
+    state: present
+
+- name: Ensure htpasswd credentials are configured.
+  community.general.htpasswd:
+    path: "{{ item.path }}"
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    mode: 0644
+  with_items: "{{ cred }}"
+  no_log: true
+
+- name: whitelist generating and copying
+  ansible.builtin.template:
+    src: whitelist.j2
+    dest: /etc/squid/whitelist
+    mode: 0555
+
+- name: squid.conf copying
+  ansible.builtin.template:
+    src: squid.conf.j2
+    dest: /etc/squid/squid.conf
+    mode: 0555
+  notify:
+    - Restart Squid

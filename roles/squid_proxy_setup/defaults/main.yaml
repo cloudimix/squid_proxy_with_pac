@@ -1,0 +1,16 @@
+---
+esp: /etc/squid/passwd
+
+cred:
+  - path: "{{ esp }}"
+    name: ololosh
+    password: 123456
+
+whitelist:
+  - .google.com
+  - .ubuntu.com
+  - .oracle.com
+
+htpasswd_required_packages:
+  - apache2-utils
+  - python3-passlib
