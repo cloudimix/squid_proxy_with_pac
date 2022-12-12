@@ -6,14 +6,6 @@ cred:
     name: ololosh
     password: 123456
 
-  - path: "{{ esp }}"
-    name: manolo
-    password: qwerty
-
-  - path: "{{ esp }}"
-    name: odmin
-    password: odmin
-
 whitelist:
   - .google.com
   - .ubuntu.com

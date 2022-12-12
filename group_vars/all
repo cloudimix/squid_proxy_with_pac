@@ -5,3 +5,25 @@ firewall_allowed_tcp_ports   :
   - "22"
   - "80"
   - "3128"
+
+# Create user(s) and password(s)
+# example:
+# cred:
+#   - path: "{{ esp }}"
+#     name: ololosh
+#     password: 123456
+#
+#   - path: "{{ esp }}"
+#     name: manolo
+#     password: qwerty
+# ----------------------------
+cred:
+  - path: "{{ esp }}"
+    name: user
+    password: pass
+
+# Set the restricted domains thats need an authorization
+whitelist:
+  - .google.com
+  - .oracle.com
+  - .github.com
